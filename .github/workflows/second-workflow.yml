@@ -1,0 +1,11 @@
+name: Test Project Workflow 
+on: push 
+jobs: 
+  test-job: 
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Download code from repository 
+        uses: actions/checkout@v3 #when we want to use a GH Action, we use 'uses' in conjunction with 'with' to provide the parameters 
+        # with: #this with is not used with any parameters, as we are happy to use all the default values. 
+
+        
