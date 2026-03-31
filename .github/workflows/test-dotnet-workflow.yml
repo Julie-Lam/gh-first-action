@@ -10,6 +10,11 @@ on: push
   # pull_request:
   #   branches: [ "main" ]
 
+defaults: 
+  run: 
+    working-directory: ./SimpleTestProject
+
+
 jobs:
   build-job:
 
