@@ -4,6 +4,9 @@ on: [issues, workflow_dispatch]
 
 jobs: 
   output-issue-job: 
+
+    runs-on: ubuntu-latest
+
     steps: 
-      -name: Echo Issue Step
-      -run:  "${{ toJSON(github.event)}}"
+      - name: Echo Issue Step
+        run:  "${{ toJSON(github.event)}}"
