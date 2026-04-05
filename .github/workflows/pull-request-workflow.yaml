@@ -1,0 +1,23 @@
+name: Pull Request Workflow 
+
+on: 
+  pull_request:
+    types: opened #example of specifying an Activity Type on the Pull_Request Event 
+
+  workflow_dispatch: 
+  
+  push: 
+    branches:  #example of specifying an Event Filter 
+      - main 
+      - 'dev*' #single wildcard matches all values except slashes, e.g. dev, development, dev-new etc 
+      - 'feature/**' #double wildcard matches all values, incl slashes, e.g. feature/new, feature/new/button etc
+
+    paths-ignore: #another e.g. of an Event Filter
+      - '.github/workflows/*' #do not trigger workflow when changes occur to this filepath 
+
+jobs:   
+  first-job:    
+    runs-on: ubuntu-latest
+    steps: 
+      - name: First step
+        run: echo "1st Step!"    
