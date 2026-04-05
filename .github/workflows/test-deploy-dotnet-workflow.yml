@@ -41,6 +41,8 @@ jobs:
   deploy-job: 
     runs-on: ubuntu-latest #Every job gets their own runner because its on a completely isolated VM! 
 
+    needs: test-job #forces this job to run sequentially, AFTER the test-job job 
+    
     steps:
     - name: Download sourcecode from repository step
       uses: actions/checkout@v4
