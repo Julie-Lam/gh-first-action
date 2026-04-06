@@ -19,6 +19,10 @@ jobs:
   test-job:
     runs-on: ubuntu-latest
 
+    defaults: 
+      run: 
+        working-directory: ./SimpleTestProject
+
     steps:
     - name: Download sourcecode from repository step
       uses: actions/checkout@v4
@@ -43,6 +47,10 @@ jobs:
 
     needs: test-job #forces this job to run sequentially, AFTER the test-job job 
 
+    defaults: 
+      run: 
+        working-directory: ./SimpleTestProject
+        
     steps:
     - name: Download sourcecode from repository step
       uses: actions/checkout@v4
