@@ -75,6 +75,12 @@ jobs:
         name: publish-files 
         path: SimpleTestProject/bin/Release/net8.0/publish
 
+    - name: Print working directory
+      run: pwd
+
+    - name: List files
+      run: ls -R
+
 
   deploy-job: 
     runs-on: ubuntu-latest #Every job gets their own runner because its on a completely isolated VM! 
