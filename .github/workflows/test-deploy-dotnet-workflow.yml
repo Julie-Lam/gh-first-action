@@ -73,7 +73,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with: 
         name: publish-files 
-        path: SimpleTestProject/bin/Release/net8.0/publish
+        path: SimpleTestProject/SimpleTestProject/bin/Release/net8.0/publish
 
     - name: Print working directory
       run: pwd
