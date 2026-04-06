@@ -38,7 +38,7 @@ jobs:
       run: dotnet test --no-build --verbosity normal
 
 
-  deploy-job: 
+  build-publish-job: 
     runs-on: ubuntu-latest #Every job gets their own runner because its on a completely isolated VM! 
 
     needs: test-job #forces this job to run sequentially, AFTER the test-job job 
@@ -61,5 +61,17 @@ jobs:
     - name: Publish project step 
       run: dotnet publish -c Release
 
+    - name: Update job artefact Step 
+      uses: actions/upload-artifact@v3
+      with: 
+        name: publish-files 
+        path: SimpleTestProject\SimpleTestProject\bin\Release\net8.0\publish
+
+  deploy-job: 
+    runs-on: ubuntu-latest #Every job gets their own runner because its on a completely isolated VM! 
+
+    needs: build-publish-job #forces this job to run sequentially, AFTER the build-publish-job job 
+
+    steps:
     - name: Deploy project step
       run: echo "Deploying to x cloud environment..."
