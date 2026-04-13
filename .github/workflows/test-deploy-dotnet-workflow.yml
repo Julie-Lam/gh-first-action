@@ -70,16 +70,10 @@ jobs:
       run: dotnet publish -c Release
 
     - name: Update job artefact Step 
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v4 #FYI Uses statements DO NOT respect the working-directory, and always runs relative to the repo root!
       with: 
         name: publish-files 
-        path: SimpleTestProject/SimpleTestProject/bin/Release/net8.0/publish
-
-    - name: Print working directory
-      run: pwd
-
-    - name: List files
-      run: ls -R
+        path: SimpleTestProject/SimpleTestProject/bin/Release/net8.0/publish #Path to the folder that we want to make available as an artefact
 
 
   deploy-job: 
@@ -88,5 +82,10 @@ jobs:
     needs: build-publish-job #forces this job to run sequentially, AFTER the build-publish-job job 
 
     steps:
+    - name: Get the build/publish artifacts
+      uses: actions/download-artifact@v4
+      with: 
+        name: publish-files 
+
     - name: Deploy project step
       run: echo "Deploying to x cloud environment..."
