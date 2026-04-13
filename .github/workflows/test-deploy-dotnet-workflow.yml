@@ -16,6 +16,19 @@ on: [push, workflow_dispatch]
 
 
 jobs:
+
+  initial-output-job: 
+    runs-on: ubuntu-latest
+
+    outputs: 
+      my-output-value: ${{ steps.publishOutput.outputs.myValue}}
+    steps: 
+      - name: Publish output 
+        id: publishOutput
+        run: myValue=HelloWorld >> $GITHUB_OUTPUT
+
+
+
   test-job:
     runs-on: ubuntu-latest
 
@@ -79,7 +92,7 @@ jobs:
   deploy-job: 
     runs-on: ubuntu-latest #Every job gets their own runner because its on a completely isolated VM! 
 
-    needs: build-publish-job #forces this job to run sequentially, AFTER the build-publish-job job 
+    needs: [build-publish-job, initial-output-job] #forces this job to run sequentially, AFTER the build-publish-job job 
 
     steps:
     - name: Get the build/publish artifacts
@@ -87,8 +100,13 @@ jobs:
       with: 
         name: publish-files 
 
+    #Note that the working directory would show the **contents** of the publish-files folder, rather than the folder itself. 
     - name: Output the current working directory 
       run: ls
-      
+
     - name: Deploy project step
       run: echo "Deploying to x cloud environment..."
+
+
+    - name: Print the output from previous job 
+      run: echo "${{ needs.initial-output-job.outputs.my-output-value }}"
