@@ -25,7 +25,7 @@ jobs:
     steps: 
       - name: Publish output 
         id: publishOutput
-        run: myValue=HelloWorld >> $GITHUB_OUTPUT
+        run: echo myValue=HelloWorld >> $GITHUB_OUTPUT
 
 
 
