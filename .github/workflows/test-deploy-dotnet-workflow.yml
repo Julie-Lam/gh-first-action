@@ -45,6 +45,12 @@ jobs:
       with:
         dotnet-version: 8.0.x
 
+    - name: Cache Dependencies 
+      uses: actions/cache@v5
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+
     - name: Restore dependencies step
       run: dotnet restore
 
@@ -72,6 +78,12 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
+
+    - name: Cache Dependencies 
+      uses: actions/cache@v5
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
 
     - name: Restore dependencies step
       run: dotnet restore
